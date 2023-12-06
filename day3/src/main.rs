@@ -116,6 +116,10 @@ fn scan_left(x: usize, y: usize, board: &Vec<Vec<char>>) -> String {
 
         chr = *board.get(y).unwrap().get(x-len).unwrap();
     }
+
+    if x-len == 0 && chr.is_numeric() {
+        str = format!("{}{}", chr, str);
+    }
     return str;
 }
 
@@ -124,11 +128,17 @@ fn scan_right(x: usize, y: usize, board: &Vec<Vec<char>>) -> String {
     let mut len = 1;
     let mut chr = *board.get(y).unwrap().get(x+1).unwrap();
 
-    while x+len != board.get(0).unwrap().len()-1 && chr.is_numeric() {
+    let width = board.get(0).unwrap().len();
+
+    while x+len != width-1 && chr.is_numeric() {
         str = format!("{}{}", str, chr);
         len += 1;
 
         chr = *board.get(y).unwrap().get(x+len).unwrap();
+    }
+
+    if x+len == width-1 && chr.is_numeric() {
+        str = format!("{}{}", str, chr);
     }
     return str;
 }
@@ -198,13 +208,14 @@ fn get_adj_nums_ratio(x: usize, y: usize, board: &Vec<Vec<char>>) -> i32 {
         }
     }
 
-    if num_list.len() != 2 {
-        return 0;
+    if num_list.len() == 2 {
+        println!("{} {} {}", num_list.get(0).unwrap(), num_list.get(1).unwrap(), num_list.get(0).unwrap() * num_list.get(1).unwrap());
+
+        return num_list.get(0).unwrap() * num_list.get(1).unwrap();
     }
+    return 0;
 
-    println!("{} {} {}", num_list.get(0).unwrap(), num_list.get(1).unwrap(), num_list.get(0).unwrap() * num_list.get(1).unwrap());
-
-    return num_list.get(0).unwrap() * num_list.get(1).unwrap();
+    
 }
 
 fn part2(board: &Vec<Vec<char>>) {

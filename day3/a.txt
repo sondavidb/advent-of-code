@@ -147,7 +147,7 @@ Is a star
 203 192 38976
 Is a star
 Is a star
-0 421 0
+500 421 210500
 Is a star
 959 631 605129
 Is a star
@@ -188,7 +188,7 @@ Is a star
 504 359 180936
 Is a star
 Is a star
-74 63 4662
+374 563 210562
 Is a star
 656 260 170560
 Is a star
@@ -696,4 +696,4 @@ Is a star
 606 720 436320
 Is a star
 337 260 87620
-72785305
+73201705
