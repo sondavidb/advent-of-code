@@ -7,9 +7,6 @@ fn part2(lines: &Vec<&str>) {
 
     for i in 0..lines.len() {
         let line = *lines.get(i).unwrap();
-        if line == "" {
-            continue;
-        }
 
         let game_trimmed: Vec<String> = line[10..].to_string().split(" | ").map(|s| s.to_string()).collect();
 
@@ -34,16 +31,13 @@ fn part2(lines: &Vec<&str>) {
                 winning_nums.remove(index.unwrap());
             }
         }
-
-        println!("{}", matches_found);
-        println!("{:?}", multiplier);
-        let factor = *multiplier.get(i).unwrap();
+        let factor = multiplier[i];
         for j in 1..matches_found+1 {
-            if i+j < multiplier.len() {
-                multiplier[i+j] += factor;
+            if i+j >= multiplier.len() {
+                break;
             }
+            multiplier[i+j] += factor;
         }
-        println!("{:?}\n", multiplier);
     }
     let sum: i32 = multiplier.iter().sum();
     println!("{}", sum);
@@ -97,7 +91,8 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let file_name = &args[1];
     let data = fs::read_to_string(file_name).expect("Unable to read file");
-    let lines:Vec<&str> = data.split('\n').collect();
+    let mut lines:Vec<&str> = data.split('\n').collect();
+    lines.retain(|x: &&str| *x != "");
 
     part1(&lines);
     part2(&lines);
